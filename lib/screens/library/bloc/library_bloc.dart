@@ -84,8 +84,11 @@ class LibraryBloc extends Bloc<LibraryEvent, LibraryState> {
     emit(LibraryState.failure(event.message));
   }
 
-  void _onUploadBook(_UploadBook event, Emitter<LibraryState> emit) async {
-    final coverPath = await bookCoverStorage.saveCover(event.coverPath ?? '');
+  Future<void> _onUploadBook(
+    _UploadBook event,
+    Emitter<LibraryState> emit,
+  ) async {
+    final coverPath = await bookCoverStorage.saveCover(event.coverPath);
     final book = LibraryBook(
       title: event.title,
       author: event.author,

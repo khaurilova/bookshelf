@@ -1,6 +1,5 @@
-import 'dart:io';
-
 import 'package:bookshelf/screens/book_screen/bloc/book_screen_bloc.dart';
+import 'package:bookshelf/screens/library/widgets/book_cover_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -15,7 +14,7 @@ class BookScreen extends StatefulWidget {
 }
 
 class _BookScreenState extends State<BookScreen> {
-  bool _isVertical = false;
+  final bool _isVertical = false;
   @override
   void initState() {
     super.initState();
@@ -62,12 +61,9 @@ class _BookScreenState extends State<BookScreen> {
                               aspectRatio: 2 / 3,
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(16),
-                                child: book.coverPath == null
-                                    ? const Center(child: Icon(Icons.menu_book))
-                                    : Image.file(
-                                        File(book.coverPath!),
-                                        fit: BoxFit.cover,
-                                      ),
+                                child: BookCoverImage(
+                                  coverPath: book.coverPath,
+                                ),
                               ),
                             ),
                           ),
