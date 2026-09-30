@@ -48,11 +48,11 @@ class _BookScreenState extends State<BookScreen> {
               return const Center(child: CircularProgressIndicator());
             },
             loaded: (book) => Center(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    Row(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
                       children: [
                         Expanded(
                           child: FractionallySizedBox(
@@ -85,33 +85,53 @@ class _BookScreenState extends State<BookScreen> {
                                     ? Axis.vertical
                                     : Axis.horizontal,
                               ),
-
-                              // Row(
-                              //   children: [
-                              //     ...(book.rating == null
-                              //         ? List.generate(
-                              //             5,
-                              //             (_) => const Icon(Icons.star_border),
-                              //           )
-                              //         : List.generate(5, (index) {
-                              //             final isFilled = index < book.rating!;
-
-                              //             return Icon(
-                              //               isFilled
-                              //                   ? Icons.star
-                              //                   : Icons.star_border,
-                              //               color: Colors.amber,
-                              //             );
-                              //           })),
-                              //   ],
-                              // ),
                             ],
                           ),
                         ),
                       ],
                     ),
-                  ],
-                ),
+                  ),
+
+                  Column(
+                    children: [
+                      SizedBox(
+                        width: 350,
+                        height: 250,
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.blueGrey,
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text('Status'),
+
+                                  book.dateStarted == null
+                                      ? SizedBox.shrink()
+                                      : Text('Dates'),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Text(book.status ?? 'planned'),
+                                  Text(book.dateStarted ?? ''),
+                                ],
+                              ),
+                              Divider(),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
             notFound: () => const Center(child: Text('Book not found')),
